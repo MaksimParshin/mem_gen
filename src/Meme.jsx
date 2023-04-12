@@ -51,6 +51,7 @@ export default function Meme() {
           value={meme.topText}
           placeholder="Top text"
           onChange={handleChange}
+          maxLength={20}
         ></input>
         <input
           className="meme__input"
@@ -59,6 +60,7 @@ export default function Meme() {
           value={meme.bottomText}
           placeholder="Bottom text"
           onChange={handleChange}
+          maxLength={20}
         ></input>
 
         <button
@@ -71,8 +73,8 @@ export default function Meme() {
       </form>
       <div className="meme__img-container">
         <img className="meme__img" src={meme.randomImage}></img>
-        <h2 className="meme__topText">{meme.topText}</h2>
-        <h2 className="meme__bottomText">{meme.bottomText}</h2>
+        <h2 className="meme__text top">{meme.topText}</h2>
+        <h2 className="meme__text bottom">{meme.bottomText}</h2>
       </div>
     </main>
   );
