@@ -77,7 +77,7 @@ export default function Meme() {
           value={meme.fontSize}
           onChange={handleChange}
           min={8}
-          max={100}
+          max={35}
         ></input>
 
         <button
