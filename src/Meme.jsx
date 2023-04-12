@@ -5,7 +5,10 @@ export default function Meme() {
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
+    fontSize: Number(16)
   });
+
+  console.log(meme)
 
   const [arrayData, setArrayData] = React.useState([]);
 
@@ -19,9 +22,12 @@ export default function Meme() {
   }, []);
 
   function getRandomImage() {
-    const random = Math.floor(
+     const random = Math.floor(
       Math.random() * (arrayData.data.memes.length - 1) + 1
     );
+
+    // const Random = require('crypto-random');
+    // const random = Random.range(1, 100)
     const url = arrayData.data.memes[random].url;
     return setMeme((prevMeme) => {
       return {
@@ -41,9 +47,12 @@ export default function Meme() {
     });
   }
 
+  let number = `${meme.fontSize}px`;
+
   return (
     <main className="meme">
       <form className="meme__form">
+      
         <input
           className="meme__input"
           type="text"
@@ -62,6 +71,15 @@ export default function Meme() {
           onChange={handleChange}
           maxLength={20}
         ></input>
+        <input
+          className="meme__input"
+          type="number"
+          name="fontSize"
+          value={meme.fontSize}
+          onChange={handleChange}
+          min={8}
+          max={100}
+        ></input>
 
         <button
           className="meme__button-submit"
@@ -73,8 +91,8 @@ export default function Meme() {
       </form>
       <div className="meme__img-container">
         <img className="meme__img" src={meme.randomImage}></img>
-        <h2 className="meme__text top">{meme.topText}</h2>
-        <h2 className="meme__text bottom">{meme.bottomText}</h2>
+        <h2 style={{fontSize: number}} className="meme__text top">{meme.topText}</h2>
+        <h2 style={{fontSize: number}} className="meme__text bottom">{meme.bottomText}</h2>
       </div>
     </main>
   );
