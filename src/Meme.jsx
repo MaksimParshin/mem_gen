@@ -5,10 +5,9 @@ export default function Meme() {
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
-    fontSize: Number(16)
+    fontSize: 16
   });
 
-  console.log(meme)
 
   const [arrayData, setArrayData] = React.useState([]);
 
