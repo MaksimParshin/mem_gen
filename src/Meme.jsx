@@ -5,7 +5,8 @@ export default function Meme() {
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
-    fontSize: 16
+    fontSize: 16,
+    color: 'white'
   });
 
 
@@ -79,6 +80,14 @@ export default function Meme() {
           min={8}
           max={35}
         ></input>
+         <input
+          className="meme__input"
+          type="color"
+          name="color"
+          value={meme.color}
+          onChange={handleChange}
+    
+        ></input>
 
         <button
           className="meme__button-submit"
@@ -90,8 +99,8 @@ export default function Meme() {
       </form>
       <div className="meme__img-container">
         <img className="meme__img" src={meme.randomImage}></img>
-        <h2 style={{fontSize: number}} className="meme__text top">{meme.topText}</h2>
-        <h2 style={{fontSize: number}} className="meme__text bottom">{meme.bottomText}</h2>
+        <h2 style={{fontSize: number, color: meme.color}} className="meme__text top">{meme.topText}</h2>
+        <h2 style={{fontSize: number, color: meme.color}} className="meme__text bottom">{meme.bottomText}</h2>
       </div>
     </main>
   );
