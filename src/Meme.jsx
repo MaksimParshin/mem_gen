@@ -1,4 +1,6 @@
 import React from "react";
+import Gallery from "./Gallery";
+// const Random = require('crypto-random');
 
 export default function Meme() {
   const [meme, setMeme] = React.useState({
@@ -6,11 +8,11 @@ export default function Meme() {
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
     fontSize: 16,
-    color: 'white'
+    color: "#ffffff",
   });
 
-
   const [arrayData, setArrayData] = React.useState([]);
+  const [showGallery, setShowGallery] = React.useState(false);
 
   React.useEffect(() => {
     async function getMems() {
@@ -22,12 +24,11 @@ export default function Meme() {
   }, []);
 
   function getRandomImage() {
-     const random = Math.floor(
+    const random = Math.floor(
       Math.random() * (arrayData.data.memes.length - 1) + 1
     );
 
-    // const Random = require('crypto-random');
-    // const random = Random.range(1, 100)
+    //  const random = Random.range(1, 100)
     const url = arrayData.data.memes[random].url;
     return setMeme((prevMeme) => {
       return {
@@ -47,12 +48,29 @@ export default function Meme() {
     });
   }
 
+function handleClickImg(event) {
+  console.log(event.target)
+  const { name, src } = event.target;
+  setMeme((prevMeme) => {
+    return {
+      ...prevMeme,
+      randomImage: src,
+    };
+  });
+  setShowGallery(false);
+}
+
+
+
+  function handleShowGallery() {
+    setShowGallery(prevState =>!prevState);
+  }
+
   let number = `${meme.fontSize}px`;
 
   return (
     <main className="meme">
       <form className="meme__form">
-      
         <input
           className="meme__input"
           type="text"
@@ -80,28 +98,45 @@ export default function Meme() {
           min={8}
           max={35}
         ></input>
-         <input
+        <input
           className="meme__input"
           type="color"
           name="color"
           value={meme.color}
           onChange={handleChange}
-    
         ></input>
 
         <button
-          className="meme__button-submit"
+          className="meme__button"
           type="button"
           onClick={getRandomImage}
         >
-          Get a new meme image
+          Get a new random meme image
+        </button>
+        <button
+          className="meme__button"
+          type="button"
+          onClick={handleShowGallery}
+        >
+          Show Gallery
         </button>
       </form>
       <div className="meme__img-container">
         <img className="meme__img" src={meme.randomImage}></img>
-        <h2 style={{fontSize: number, color: meme.color}} className="meme__text top">{meme.topText}</h2>
-        <h2 style={{fontSize: number, color: meme.color}} className="meme__text bottom">{meme.bottomText}</h2>
+        <h2
+          style={{ fontSize: number, color: meme.color }}
+          className="meme__text top"
+        >
+          {meme.topText}
+        </h2>
+        <h2
+          style={{ fontSize: number, color: meme.color }}
+          className="meme__text bottom"
+        >
+          {meme.bottomText}
+        </h2>
       </div>
+      {showGallery && <Gallery arr={arrayData} handleClickImg={handleClickImg}/>}
     </main>
   );
 }
