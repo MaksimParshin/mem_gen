@@ -7,6 +7,7 @@ export default function Meme() {
     topText: "",
     bottomText: "",
     randomImage: "http://i.imgflip.com/1bij.jpg",
+    imageAlt: "One does not simply",
     fontSize: 16,
     color: "#ffffff",
   });
@@ -29,11 +30,13 @@ export default function Meme() {
     );
 
     //  const random = Random.range(1, 100)
-    const url = arrayData.data.memes[random].url;
+    const meme = arrayData.data.memes[random];
+
     return setMeme((prevMeme) => {
       return {
         ...prevMeme,
-        randomImage: url,
+        randomImage: meme.url,
+        imageAlt: meme.name
       };
     });
   }
@@ -48,23 +51,35 @@ export default function Meme() {
     });
   }
 
-function handleClickImg(event) {
-  console.log(event.target)
-  const { name, src } = event.target;
-  setMeme((prevMeme) => {
-    return {
-      ...prevMeme,
-      randomImage: src,
-    };
-  });
-  setShowGallery(false);
-}
-
-
+  function handleClickImg(event) {
+    console.log(event.target);
+    const { src, alt } = event.target;
+    setMeme((prevMeme) => {
+      return {
+        ...prevMeme,
+        randomImage: src,
+        imageAlt: alt
+      };
+    });
+    setShowGallery(false);
+  }
 
   function handleShowGallery() {
-    setShowGallery(prevState =>!prevState);
+    setShowGallery((prevState) => !prevState);
   }
+
+  function closeGalleryEsc(event) {
+    if (event.key === "Escape") {
+      setShowGallery(false);
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener("keydown", closeGalleryEsc);
+    return () => {
+      document.removeEventListener("keydown", closeGalleryEsc);
+    };
+  }, [showGallery]);
 
   let number = `${meme.fontSize}px`;
 
@@ -106,11 +121,7 @@ function handleClickImg(event) {
           onChange={handleChange}
         ></input>
 
-        <button
-          className="meme__button"
-          type="button"
-          onClick={getRandomImage}
-        >
+        <button className="meme__button" type="button" onClick={getRandomImage}>
           Get a new random meme image
         </button>
         <button
@@ -118,11 +129,11 @@ function handleClickImg(event) {
           type="button"
           onClick={handleShowGallery}
         >
-          Show Gallery
+          {showGallery ? "Close Gallery" : "Show Gallery"}
         </button>
       </form>
       <div className="meme__img-container">
-        <img className="meme__img" src={meme.randomImage}></img>
+        <img className="meme__img" src={meme.randomImage} alt={meme.imageAlt}></img>
         <h2
           style={{ fontSize: number, color: meme.color }}
           className="meme__text top"
@@ -136,7 +147,9 @@ function handleClickImg(event) {
           {meme.bottomText}
         </h2>
       </div>
-      {showGallery && <Gallery arr={arrayData} handleClickImg={handleClickImg}/>}
+      {showGallery && (
+        <Gallery arr={arrayData} handleClickImg={handleClickImg} />
+      )}
     </main>
   );
 }
