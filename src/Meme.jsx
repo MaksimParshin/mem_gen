@@ -29,6 +29,7 @@ export default function Meme() {
 
     context.strokeStyle = "black";
     context.fillStyle = meme.color;
+    context.lineWidth = meme.fontSize / 8;
     context.textAlign = "center";
     context.font = `${meme.fontSize}px sans-serif`;
 
@@ -107,7 +108,7 @@ export default function Meme() {
     };
   }, [showGallery]);
 
-  let number = `${meme.fontSize}px`;
+  // let number = `${meme.fontSize}px`;
 
   return (
     <main className="meme">
@@ -159,10 +160,8 @@ export default function Meme() {
         </button>
       </form>
 
-      
-
       <div className="meme__img-container">
-      <canvas ref={canvasRef}></canvas>
+        <canvas ref={canvasRef}></canvas>
         {/* <img
           className="meme__img"
           src={meme.randomImage}
