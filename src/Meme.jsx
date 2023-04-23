@@ -29,7 +29,7 @@ export default function Meme() {
 
     context.strokeStyle = "black";
     context.fillStyle = meme.color;
-    context.lineWidth = meme.fontSize / 8;
+    context.lineWidth = meme.fontSize / 6;
     context.textAlign = "center";
     context.font = `${meme.fontSize}px sans-serif`;
 
