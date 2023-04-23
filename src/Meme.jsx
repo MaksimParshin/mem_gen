@@ -14,6 +14,32 @@ export default function Meme() {
 
   const [arrayData, setArrayData] = React.useState([]);
   const [showGallery, setShowGallery] = React.useState(false);
+  const canvasRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+    const img = new Image();
+    img.src = meme.randomImage;
+    const width = img.width;
+    const height = img.height;
+    canvas.width = width;
+    canvas.height = height;
+    context.drawImage(img, 0, 0);
+
+    context.strokeStyle = "black";
+    context.fillStyle = meme.color;
+    context.textAlign = "center";
+    context.font = `${meme.fontSize}px sans-serif`;
+
+    context.textBaseline = "top";
+    context.strokeText(meme.topText, width / 2, 50);
+    context.fillText(meme.topText, width / 2, 50);
+
+    context.textBaseline = "bottom";
+    context.strokeText(meme.bottomText, width / 2, height - 50);
+    context.fillText(meme.bottomText, width / 2, height - 50);
+  }, [meme]);
 
   React.useEffect(() => {
     async function getMems() {
@@ -36,7 +62,7 @@ export default function Meme() {
       return {
         ...prevMeme,
         randomImage: meme.url,
-        imageAlt: meme.name
+        imageAlt: meme.name,
       };
     });
   }
@@ -58,7 +84,7 @@ export default function Meme() {
       return {
         ...prevMeme,
         randomImage: src,
-        imageAlt: alt
+        imageAlt: alt,
       };
     });
     setShowGallery(false);
@@ -132,8 +158,16 @@ export default function Meme() {
           {showGallery ? "Close Gallery" : "Show Gallery"}
         </button>
       </form>
+
+      
+
       <div className="meme__img-container">
-        <img className="meme__img" src={meme.randomImage} alt={meme.imageAlt}></img>
+      <canvas ref={canvasRef}></canvas>
+        {/* <img
+          className="meme__img"
+          src={meme.randomImage}
+          alt={meme.imageAlt}
+        ></img>
         <h2
           style={{ fontSize: number, color: meme.color }}
           className="meme__text top"
@@ -145,7 +179,7 @@ export default function Meme() {
           className="meme__text bottom"
         >
           {meme.bottomText}
-        </h2>
+        </h2> */}
       </div>
       {showGallery && (
         <Gallery arr={arrayData} handleClickImg={handleClickImg} />
