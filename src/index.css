@@ -23,7 +23,7 @@ body {
 
 #root {
   margin: 0 auto;
-  max-width: 550px;
+  max-width: 1280px;
 }
 
 
@@ -66,7 +66,6 @@ body {
   font-size: 12px;
   line-height: 15px;
   text-align: right;
-
   color: #FFFFFF;
 }
 
@@ -74,14 +73,13 @@ body {
 /* meme */
 .meme {
   padding: 0 36px;
-  position: relative;
 }
 
 
 .meme__form {
   margin-top: 36px;
   display: grid;
-  grid-template: 40px 40px / 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 17px;
 }
 
@@ -119,55 +117,6 @@ body {
   color: #FFFFFF;
 }
 
-
-.meme__img {
-  /* object-fit: cover; */
-  width: 100%;
-  margin-top: 36px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  z-index: -1;
-}
-
-
-.meme__img-container {
-  position: relative;
-}
-
-.meme__text {
-  position: absolute;
-  width: 80%;
-  text-align: center;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 15px 0;
-  padding: 0 5px;
-  font-family: impact, sans-serif;
-  font-size: 2em;
-  text-transform: uppercase;
-  color: white;
-  letter-spacing: 1px;
-  text-shadow:
-    2px 2px 0 #000,
-    -2px -2px 0 #000,
-    2px -2px 0 #000,
-    -2px 2px 0 #000,
-    0 2px 0 #000,
-    2px 0 0 #000,
-    0 -2px 0 #000,
-    -2px 0 0 #000,
-    2px 2px 5px #000;
-}
-
-.bottom {
-  bottom: 0;
-}
-
-.top {
-  top: 20px;
-}
-
 .gallery {
   width: 100%;
   display: grid;
@@ -175,7 +124,7 @@ body {
   grid-auto-rows: auto;
   gap: 10px;
   position: absolute;
-  top: 180px;
+  top: 0;
   left: 0;
   background: rgba(0, 0, 0, .8);
 
@@ -185,4 +134,14 @@ body {
 .gallery__img {
   width: 100%;
   cursor: pointer;
+}
+
+.meme__img-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.canvas {
+  margin-top: 17px;
+  width: 100%
 }

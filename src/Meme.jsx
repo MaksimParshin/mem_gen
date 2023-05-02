@@ -15,6 +15,7 @@ export default function Meme() {
   const [arrayData, setArrayData] = React.useState([]);
   const [showGallery, setShowGallery] = React.useState(false);
   const canvasRef = React.useRef(null);
+  const linkRef = React.useRef(null);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -101,6 +102,15 @@ export default function Meme() {
     }
   }
 
+  function handleDownloadIMG() {
+    let canvasR = canvasRef.current;
+    console.log(canvasR);
+    let dataURL = canvasR.toDataURL("image/png");
+    let link = document.createElement("a");
+    link.href = dataURL;
+    link.download = "meme.png";
+    link.click();
+  }
   React.useEffect(() => {
     document.addEventListener("keydown", closeGalleryEsc);
     return () => {
@@ -161,25 +171,11 @@ export default function Meme() {
       </form>
 
       <div className="meme__img-container">
-        <canvas ref={canvasRef}></canvas>
-        {/* <img
-          className="meme__img"
-          src={meme.randomImage}
-          alt={meme.imageAlt}
-        ></img>
-        <h2
-          style={{ fontSize: number, color: meme.color }}
-          className="meme__text top"
-        >
-          {meme.topText}
-        </h2>
-        <h2
-          style={{ fontSize: number, color: meme.color }}
-          className="meme__text bottom"
-        >
-          {meme.bottomText}
-        </h2> */}
+        <canvas className="canvas" ref={canvasRef}></canvas>
       </div>
+
+      <button onClick={handleDownloadIMG}>Download</button>
+
       {showGallery && (
         <Gallery arr={arrayData} handleClickImg={handleClickImg} />
       )}
